@@ -14,6 +14,10 @@ namespace PlayerManagerMVC
                 new Player("Marco", 200),
                 new Player("Verde", 250)
             };
+
+            Controller controller = new Controller(playerList);
+
+            IView view = new UglyView(controller, players);
         }
 
         public void Run()
