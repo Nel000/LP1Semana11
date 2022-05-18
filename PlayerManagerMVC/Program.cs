@@ -18,44 +18,8 @@ namespace PlayerManagerMVC
             Controller controller = new Controller(playerList);
 
             IView view = new UglyView(controller, players);
-        }
 
-        public void Run()
-        {
-            string input;
-            
-            do
-            {
-                Console.WriteLine("Menu");
-                Console.WriteLine("----");
-                Console.WriteLine("1. Insert Player");
-                Console.WriteLine("2. List all players");
-                Console.WriteLine("3. List players with score greater than");
-                Console.WriteLine("E. Exit");
-                Console.WriteLine();
-                Console.Write("> ");
-                input = Console.ReadLine().ToUpper();
-                switch (input)
-                {
-                    case "1":
-                        InsertPlayer();
-                        break;
-                    case "2":
-                        DefineOrderList(playerList);
-                        break;
-                    case "3":
-                        ShowPlayersWithScore();
-                        break;
-                    case "E":
-                        break;
-                    default:
-                        Console.WriteLine("!!! Unknown option !!!");
-                        break;
-                }
-                Console.WriteLine("Press any key to continue...");
-                Console.Read();
-            }
-            while (input != "E");
+            controller.Run(view);
         }
 
         private void InsertPlayer()
@@ -144,7 +108,6 @@ namespace PlayerManagerMVC
         private static void Main()
         {
             Program program = new Program();
-            program.Run();
         }
     }
 }

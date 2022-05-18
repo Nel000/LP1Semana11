@@ -22,5 +22,10 @@ namespace PlayerManagerMVC
 
             return other.Score - this.Score;
         }
+
+        public override string ToString()
+        {
+            return $"{Name} ({Score})";
+        }
     }
 }
