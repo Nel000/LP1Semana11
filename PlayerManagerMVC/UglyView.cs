@@ -14,18 +14,18 @@ namespace PlayerManagerMVC
             this.players = players;
         }
 
-        public string MainMenu()
+        public int MainMenu()
         {
             Console.WriteLine("Menu");
             Console.WriteLine("----");
             Console.WriteLine("1. Insert Player");
             Console.WriteLine("2. List all players");
             Console.WriteLine("3. List players with score greater than");
-            Console.WriteLine("E. Exit");
+            Console.WriteLine("0. Exit");
             Console.WriteLine();
             Console.Write("> ");
 
-            return Console.ReadLine();
+            return int.Parse(Console.ReadLine());
         }
 
         public void ShowPlayers(IEnumerable<Player> players)

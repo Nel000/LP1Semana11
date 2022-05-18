@@ -18,7 +18,7 @@ namespace PlayerManagerMVC
         {
             this.view = view;
 
-            string input;
+            int input;
             
             do
             {
@@ -26,25 +26,23 @@ namespace PlayerManagerMVC
 
                 switch (input)
                 {
-                    case "1":
+                    case 1:
                         InsertPlayer();
                         break;
-                    case "2":
-                        DefineOrderList(playerList);
+                    case 2:
+                        DefineOrderList(players);
                         break;
-                    case "3":
+                    case 3:
                         ShowPlayersWithScore();
                         break;
-                    case "E":
+                    case 0:
                         break;
                     default:
                         view.InvalidOption();
                         break;
                 }
-                Console.WriteLine("Press any key to continue...");
-                Console.Read();
             }
-            while (input != "E");
+            while (input != 0);
         }
 
         private void InsertPlayer()
@@ -64,11 +62,22 @@ namespace PlayerManagerMVC
             view.ShowPlayers(highScorePlayers);
         }
 
+        private IEnumerable<Player> GetPlayersWithScoreGreaterThan(int minScore)
+        {
+            foreach (Player player in players)
+            {
+                if (player.Score >= minScore)
+                {
+                    yield return player;
+                }
+            }
+        }
+
         private void DefineOrderList(IEnumerable<Player> playerCollection)
         {
             IComparer<Player> comp;
 
-            string input;
+            int input;
 
             bool showing = true;
 
@@ -78,22 +87,22 @@ namespace PlayerManagerMVC
 
                 switch (input)
                 {
-                    case "1":
-                        playerList.Sort();
+                    case 1:
+                        players.Sort();
                         showing = false;
                         break;
-                    case "2":
+                    case 2:
                         comp = new CompareByName(true);
-                        playerList.Sort(comp);
+                        players.Sort(comp);
                         showing = false;
                         break;
-                    case "3":
+                    case 3:
                         comp = new CompareByName(false);
-                        playerList.Sort(comp);
+                        players.Sort(comp);
                         showing = false;
                         break;
                     default:
-                        Console.WriteLine("!!! Unknown option !!!");
+                        view.InvalidOption();
                         break;
                 }
             }

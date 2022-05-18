@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 
 namespace PlayerManagerMVC
 {
     public interface IView
     {
-        string MainMenu();
+        int MainMenu();
 
         void ShowPlayers(IEnumerable<Player> players);
 
