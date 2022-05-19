@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TicTacToeMVC
 {
@@ -12,6 +10,11 @@ namespace TicTacToeMVC
         public View (Controller controller)
         {
             this.controller = controller;
+        }
+
+        public int ActionSelection()
+        {
+            return int.Parse(Console.ReadLine());
         }
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace TicTacToeMVC
 {
-    public interface IView
+    public class Board
     {
-        int ActionSelection();
+        
     }
 }
