@@ -9,8 +9,6 @@ namespace TicTacToeMVC
         private Board board;
         private IView view;
 
-        private bool gameOver;
-
         public Controller(Player p1, Player p2, Board board)
         {
             this.p1 = p1;
@@ -24,8 +22,6 @@ namespace TicTacToeMVC
             this.view = view;
 
             Player currentPlayer = p1;
-
-            gameOver = false;
 
             do
             {
@@ -50,11 +46,11 @@ namespace TicTacToeMVC
                         break;
                 }
 
-                CheckWinCondition();
+                board.CheckWinCondition();
 
                 currentPlayer = SwitchPlayer(currentPlayer);
             }
-            while(!gameOver);
+            while(!board.GameOver);
         }
 
         private void UpdateBoard(int position)
