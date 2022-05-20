@@ -41,7 +41,8 @@ namespace TicTacToeMVC
 
         public void InvalidOption()
         {
-
+            Console.WriteLine("Invalid option! Press any key to continue...");
+            Console.Read();
         }
     }
 }

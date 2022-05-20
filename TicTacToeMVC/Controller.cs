@@ -40,15 +40,13 @@ namespace TicTacToeMVC
                     case 8:
                     case 9:
                         UpdateBoard(input);
+                        board.CheckWinCondition();
+                        currentPlayer = SwitchPlayer(currentPlayer);
                         break;
                     default:
                         view.InvalidOption();
                         break;
                 }
-
-                board.CheckWinCondition();
-
-                currentPlayer = SwitchPlayer(currentPlayer);
             }
             while(!board.GameOver);
         }
