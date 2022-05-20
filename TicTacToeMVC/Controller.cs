@@ -5,6 +5,8 @@ namespace TicTacToeMVC
 {
     public class Controller
     {
+        private bool gameOver;
+
         private Player p1, p2;
         private Board board;
         private IView view;
@@ -21,11 +23,13 @@ namespace TicTacToeMVC
             int input;
             this.view = view;
 
+            string[] values = DefineBoard();
+
             Player currentPlayer = p1;
 
             do
             {
-                view.PrintBoard();
+                view.PrintBoard(values);
                 input = view.ActionSelection(currentPlayer);
 
                 switch (input)
@@ -48,7 +52,19 @@ namespace TicTacToeMVC
                         break;
                 }
             }
-            while(!board.GameOver);
+            while(!board.IsFull && !gameOver);
+        }
+
+        private string[] DefineBoard()
+        {   
+            string[] values = new string[board.Slots.Length];
+            
+            for (int i = 0; i < board.Slots.Length; i++)
+            {
+                values[i] = board.Slots[i].ToString();
+            }
+
+            return values;
         }
 
         private void UpdateBoard(int position)
@@ -64,9 +80,18 @@ namespace TicTacToeMVC
                 return p1;
         }
 
-        private void CheckWinCondition()
+        private void CheckBoardStatus()
         {
+            bool isFull = false;
 
+            foreach (Slot slot in board.Slots)
+            {
+                if (slot.IsUsed)
+                    isFull = true;
+            }
+
+            if (isFull == true)
+                gameOver = true;
         }
     }
 }

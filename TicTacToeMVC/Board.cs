@@ -7,14 +7,19 @@ namespace TicTacToeMVC
     {
         private int size;
 
-        public Slot[] slots { get; private set; }
+        public Slot[] Slots { get; private set; }
 
-        public bool GameOver{ get; private set; }
+        public bool IsFull{ get; private set; }
 
         public Board()
         {
             size = 9;
-            slots = new Slot[size];
+            Slots = new Slot[size];
+
+            for (int i = 0; i < Slots.Length; i++)
+            {
+                Slots[i] = new Slot(i + 1);
+            }
         }
 
         public void CheckWinCondition()
