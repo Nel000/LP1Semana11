@@ -9,8 +9,8 @@ namespace TicTacToeMVC
         {
             Board board = new Board();
 
-            Player player1 = new Player();
-            Player player2 = new Player();
+            Player player1 = new Player(1);
+            Player player2 = new Player(2);
 
             Controller controller = new Controller(player1, player2, board);
 

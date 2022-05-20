@@ -5,6 +5,9 @@ namespace TicTacToeMVC
 {
     public interface IView
     {
-        int ActionSelection();
+        void PrintBoard();
+        int ActionSelection(Player currentPlayer);
+        void UpdateBoard();
+        void InvalidOption();
     }
 }

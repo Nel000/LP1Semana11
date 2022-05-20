@@ -5,6 +5,13 @@ namespace TicTacToeMVC
 {
     public class Board
     {
+        private int size;
+
         
+
+        public Board()
+        {
+            size = 9;
+        }
     }
 }

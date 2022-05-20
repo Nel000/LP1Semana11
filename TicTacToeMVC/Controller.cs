@@ -23,11 +23,14 @@ namespace TicTacToeMVC
             int input;
             this.view = view;
 
+            Player currentPlayer = p1;
+
             gameOver = false;
 
             do
             {
-                input = view.ActionSelection();
+                view.PrintBoard();
+                input = view.ActionSelection(currentPlayer);
 
                 switch (input)
                 {
@@ -40,16 +43,38 @@ namespace TicTacToeMVC
                     case 7:
                     case 8:
                     case 9:
-                        // view.UpdateBoard(input);
+                        UpdateBoard(input);
                         break;
                     default:
-                        // view.InvalidOption();
+                        view.InvalidOption();
                         break;
                 }
 
-                // CheckWinCondition();
+                CheckWinCondition();
+
+                currentPlayer = SwitchPlayer(currentPlayer);
             }
             while(!gameOver);
         }
+
+        private void UpdateBoard(int position)
+        {
+
+        }
+
+        private Player SwitchPlayer(Player currentPlayer)
+        {
+            if (currentPlayer == p1)
+                return p2;
+            else
+                return p1;
+        }
+
+        private void CheckWinCondition()
+        {
+
+        }
     }
 }
+
+    
