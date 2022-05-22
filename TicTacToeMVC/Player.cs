@@ -7,9 +7,12 @@ namespace TicTacToeMVC
     {
         private int num;
 
-        public Player(int num)
+        public string Symbol { get; private set; }
+
+        public Player(int num, string symbol)
         {
             this.num = num;
+            Symbol = symbol;
         }
 
         public override string ToString()

@@ -23,12 +23,14 @@ namespace TicTacToeMVC
             int input;
             this.view = view;
 
-            string[] values = DefineBoard();
+            string[] values;
 
             Player currentPlayer = p1;
 
             do
             {
+                board.CheckWinCondition();
+                values = DefineBoard();
                 view.PrintBoard(values);
                 input = view.ActionSelection(currentPlayer);
 
@@ -43,8 +45,7 @@ namespace TicTacToeMVC
                     case 7:
                     case 8:
                     case 9:
-                        UpdateBoard(input);
-                        board.CheckWinCondition();
+                        UpdateSlots(input, currentPlayer);
                         currentPlayer = SwitchPlayer(currentPlayer);
                         break;
                     default:
@@ -61,15 +62,18 @@ namespace TicTacToeMVC
             
             for (int i = 0; i < board.Slots.Length; i++)
             {
-                values[i] = board.Slots[i].ToString();
+                if (board.Slots[i].IsUsed)
+                    values[i] = board.Slots[i].Value;
+                else
+                    values[i] = board.Slots[i].ToString();
             }
 
             return values;
         }
 
-        private void UpdateBoard(int position)
+        private void UpdateSlots(int position, Player currentPlayer)
         {
-
+            board.Slots[position].UpdateSlot(currentPlayer.Symbol);
         }
 
         private Player SwitchPlayer(Player currentPlayer)
