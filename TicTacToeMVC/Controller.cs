@@ -58,11 +58,15 @@ namespace TicTacToeMVC
             }
             while(!board.IsFull && !hasWinner);
 
-            if (board.IsFull && !hasWinner)
-            {
+            if (!hasWinner)
                 gameState = GameStates.Draw;
-                view.EndGame(gameState, 0);
-            }
+            else
+                if (currentPlayer == p1)
+                    gameState = GameStates.P1Win;
+                else
+                    gameState = GameStates.P2Win;
+
+            view.EndGame(gameState);
         }
 
         private IEnumerable<int> UpdateValidPositions()

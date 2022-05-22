@@ -9,6 +9,6 @@ namespace TicTacToeMVC
         int ActionSelection(Player currentPlayer);
         void UpdateBoard();
         void InvalidOption();
-        void EndGame(GameStates gameState, int winID);
+        void EndGame(GameStates gameState);
     }
 }

@@ -45,7 +45,7 @@ namespace TicTacToeMVC
             Console.Read();
         }
 
-        public void EndGame(GameStates gameState, int winID)
+        public void EndGame(GameStates gameState)
         {
             Console.Write("GAME OVER");
 
@@ -54,8 +54,16 @@ namespace TicTacToeMVC
                 case GameStates.Draw:
                     Console.Write(" - It's a draw!");
                     break;
+                case GameStates.P1Win:
+                    Console.Write(" - Player 1 wins!");
+                    break;
+                case GameStates.P2Win:
+                    Console.Write(" - Player 2 wins!");
+                    break;
             }
             
+            Console.WriteLine("\nPress any key to continue...");
+            Console.Read();
         }
     }
 }
