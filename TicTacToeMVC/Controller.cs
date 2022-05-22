@@ -133,20 +133,6 @@ namespace TicTacToeMVC
             else
                 return p1;
         }
-
-        private void CheckBoardStatus()
-        {
-            bool isFull = false;
-
-            foreach (Slot slot in board.Slots)
-            {
-                if (slot.IsUsed)
-                    isFull = true;
-            }
-
-            if (isFull == true)
-                hasWinner = true;
-        }
     }
 }
 

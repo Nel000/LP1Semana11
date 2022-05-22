@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace TicTacToeMVC
+﻿namespace TicTacToeMVC
 {
     class Program
     {
