@@ -33,7 +33,7 @@ namespace TicTacToeMVC
         public string ActionSelection(Player currentPlayer)
         {   
             Console.WriteLine($"{currentPlayer.ToString()}: " 
-                + "Select one of the numbered positions make a move");
+                + "Select one of the coordinates to make a move");
             Console.Write("> ");
 
             return Console.ReadLine();
