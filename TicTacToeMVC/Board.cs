@@ -32,11 +32,67 @@ namespace TicTacToeMVC
             }
         }
 
+        public bool CheckLine(int x, Player currentPlayer)
+        {   
+            int playerSlots = 0;
+
+            for (int i = 0; i < maxSlots; i++)
+            {
+                if (SlotMatrix[x , i].Value == currentPlayer.Symbol)
+                    playerSlots++;
+            }
+
+            if (playerSlots == 3)
+                return true;
+
+            return false;
+        }
+
+        public bool CheckColumn(int y, Player currentPlayer)
+        {
+            int playerSlots = 0;
+
+            for (int i = 0; i < maxSlots; i++)
+            {
+                if (SlotMatrix[i, y].Value == currentPlayer.Symbol)
+                    playerSlots++;
+            }
+
+            if (playerSlots == 3)
+                return true;
+
+            return false;
+        }
+
+        public bool CheckDiagonal(int x, int y, Player currentPlayer)
+        {
+            int playerSlots = 0;
+
+            for (int i = 0, j = 2; i < maxSlots; i++, j--)
+            {
+                if (x == y)
+                {
+                    if (SlotMatrix[i, i].Value == currentPlayer.Symbol)
+                        playerSlots++;
+                }   
+                else
+                {
+                    if (SlotMatrix[i, j].Value == currentPlayer.Symbol)
+                        playerSlots++;
+                }
+            }
+
+            if (playerSlots == 3)
+                return true;
+
+            return false;
+        }
+
         public void CheckSlots()
         {
             bool hasEmptySlots = false;
 
-            foreach (Slot slot in Slots)
+            foreach (Slot slot in SlotMatrix)
             {
                 if (!slot.IsUsed)
                     hasEmptySlots = true;

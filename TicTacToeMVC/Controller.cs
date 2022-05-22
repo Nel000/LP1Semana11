@@ -46,7 +46,6 @@ namespace TicTacToeMVC
                     {
                         hasPlayed = true;
                         UpdateSlot(input, currentPlayer);
-                        CheckWinCondition(currentPlayer);
 
                         values = DefineBoard();
                         view.PrintBoard(values);
@@ -65,9 +64,9 @@ namespace TicTacToeMVC
                 gameState = GameStates.Draw;
             else
                 if (currentPlayer == p1)
-                    gameState = GameStates.P1Win;
-                else
                     gameState = GameStates.P2Win;
+                else
+                    gameState = GameStates.P1Win;
 
             view.EndGame(gameState);
         }
@@ -115,11 +114,16 @@ namespace TicTacToeMVC
             int y = Int32.Parse(coordinates[1]);
 
             board.SlotMatrix[x, y].UpdateSlot(currentPlayer.Symbol);
+            CheckWinCondition(x, y, currentPlayer);
         }
 
-        private void CheckWinCondition(Player currentPlayer)
+        private void CheckWinCondition(int x, int y, Player currentPlayer)
         {
-            
+                hasWinner = board.CheckLine(x, currentPlayer);
+                if (!hasWinner)
+                    hasWinner = board.CheckColumn(y, currentPlayer);
+                if (!hasWinner)
+                    hasWinner = board.CheckDiagonal(x, y, currentPlayer);
         }
 
         private Player SwitchPlayer(Player currentPlayer)
