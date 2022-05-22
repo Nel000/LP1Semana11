@@ -22,9 +22,20 @@ namespace TicTacToeMVC
             }
         }
 
-        public void CheckWinCondition()
+        public void CheckSlots()
         {
+            bool hasEmptySlots = false;
 
+            foreach (Slot slot in Slots)
+            {
+                if (!slot.IsUsed)
+                    hasEmptySlots = true;
+            }
+
+            if (!hasEmptySlots)
+                IsFull = true;
+            else
+                IsFull = false;
         }
     }
 }

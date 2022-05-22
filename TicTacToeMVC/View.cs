@@ -44,5 +44,18 @@ namespace TicTacToeMVC
             Console.WriteLine("Invalid option! Press any key to continue...");
             Console.Read();
         }
+
+        public void EndGame(GameStates gameState, int winID)
+        {
+            Console.Write("GAME OVER");
+
+            switch (gameState)
+            {
+                case GameStates.Draw:
+                    Console.Write(" - It's a draw!");
+                    break;
+            }
+            
+        }
     }
 }

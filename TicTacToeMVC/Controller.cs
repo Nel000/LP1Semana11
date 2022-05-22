@@ -5,9 +5,10 @@ namespace TicTacToeMVC
 {
     public class Controller
     {
-        private bool gameOver;
+        private bool hasWinner;
 
         private Player p1, p2;
+        private GameStates gameState;
         private Board board;
         private IView view;
 
@@ -23,7 +24,8 @@ namespace TicTacToeMVC
             int input;
             this.view = view;
 
-            string[] values;
+            string[] values = DefineBoard();
+            view.PrintBoard(values);
 
             Player currentPlayer = p1;
 
@@ -31,21 +33,22 @@ namespace TicTacToeMVC
             {
                 bool hasPlayed = false;
 
-                board.CheckWinCondition();
-                values = DefineBoard();
-                view.PrintBoard(values);
-
                 input = view.ActionSelection(currentPlayer);
 
                 IEnumerable<int> validPositions = new List<int>();
                 validPositions = UpdateValidPositions();
-                
+
                 foreach (int value in validPositions)
                 {
                     if (input == value)
                     {
                         hasPlayed = true;
                         UpdateSlot(input, currentPlayer);
+
+                        values = DefineBoard();
+                        view.PrintBoard(values);
+                        board.CheckSlots();
+                        
                         currentPlayer = SwitchPlayer(currentPlayer);
                     }
                 }
@@ -53,7 +56,13 @@ namespace TicTacToeMVC
                 if (!hasPlayed)
                     view.InvalidOption();
             }
-            while(!board.IsFull && !gameOver);
+            while(!board.IsFull && !hasWinner);
+
+            if (board.IsFull && !hasWinner)
+            {
+                gameState = GameStates.Draw;
+                view.EndGame(gameState, 0);
+            }
         }
 
         private IEnumerable<int> UpdateValidPositions()
@@ -106,7 +115,7 @@ namespace TicTacToeMVC
             }
 
             if (isFull == true)
-                gameOver = true;
+                hasWinner = true;
         }
     }
 }
