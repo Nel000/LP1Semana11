@@ -2,7 +2,6 @@ namespace TicTacToeMVC
 {
     public class Board
     {
-        private const int size = 9;
         private const int maxSlots = 3;
 
         public Slot[,] SlotMatrix { get; private set; }
