@@ -29,31 +29,42 @@ namespace TicTacToeMVC
 
             do
             {
+                bool hasPlayed = false;
+
                 board.CheckWinCondition();
                 values = DefineBoard();
                 view.PrintBoard(values);
+
                 input = view.ActionSelection(currentPlayer);
 
-                switch (input)
+                IEnumerable<int> validPositions = new List<int>();
+                validPositions = UpdateValidPositions();
+                
+                foreach (int value in validPositions)
                 {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                    case 8:
-                    case 9:
-                        UpdateSlots(input, currentPlayer);
+                    if (input == value)
+                    {
+                        hasPlayed = true;
+                        UpdateSlot(input, currentPlayer);
                         currentPlayer = SwitchPlayer(currentPlayer);
-                        break;
-                    default:
-                        view.InvalidOption();
-                        break;
+                    }
                 }
+
+                if (!hasPlayed)
+                    view.InvalidOption();
             }
             while(!board.IsFull && !gameOver);
+        }
+
+        private IEnumerable<int> UpdateValidPositions()
+        {
+            for (int i = 0; i < board.Slots.Length; i++)
+            {
+                if (!board.Slots[i].IsUsed)
+                {
+                    yield return Int32.Parse(board.Slots[i].Value);
+                }
+            }
         }
 
         private string[] DefineBoard()
@@ -71,9 +82,9 @@ namespace TicTacToeMVC
             return values;
         }
 
-        private void UpdateSlots(int position, Player currentPlayer)
+        private void UpdateSlot(int position, Player currentPlayer)
         {
-            board.Slots[position].UpdateSlot(currentPlayer.Symbol);
+            board.Slots[position - 1].UpdateSlot(currentPlayer.Symbol);
         }
 
         private Player SwitchPlayer(Player currentPlayer)
