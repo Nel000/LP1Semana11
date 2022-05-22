@@ -5,6 +5,8 @@ namespace TicTacToeMVC
 {
     public class Controller
     {
+        private const int maxRowSlots = 3;
+
         private bool hasWinner;
 
         private Player p1, p2;
@@ -21,10 +23,10 @@ namespace TicTacToeMVC
 
         public void Run(IView view)
         {
-            int input;
+            string input;
             this.view = view;
 
-            string[] values = DefineBoard();
+            string[,] values = DefineBoard();
             view.PrintBoard(values);
 
             Player currentPlayer = p1;
@@ -35,15 +37,16 @@ namespace TicTacToeMVC
 
                 input = view.ActionSelection(currentPlayer);
 
-                IEnumerable<int> validPositions = new List<int>();
+                IEnumerable<string> validPositions = new List<string>();
                 validPositions = UpdateValidPositions();
 
-                foreach (int value in validPositions)
+                foreach (string value in validPositions)
                 {
                     if (input == value)
                     {
                         hasPlayed = true;
                         UpdateSlot(input, currentPlayer);
+                        CheckWinCondition(currentPlayer);
 
                         values = DefineBoard();
                         view.PrintBoard(values);
@@ -69,35 +72,54 @@ namespace TicTacToeMVC
             view.EndGame(gameState);
         }
 
-        private IEnumerable<int> UpdateValidPositions()
+        private IEnumerable<string> UpdateValidPositions()
         {
-            for (int i = 0; i < board.Slots.Length; i++)
+            for (int i = 0; i < maxRowSlots; i++)
             {
-                if (!board.Slots[i].IsUsed)
+                for (int j = 0; j < maxRowSlots; j++)
                 {
-                    yield return Int32.Parse(board.Slots[i].Value);
+                    if (!board.SlotMatrix[i, j].IsUsed)
+                    {
+                        yield return board.SlotMatrix[i, j].Value;
+                    }
                 }
             }
         }
 
-        private string[] DefineBoard()
+        private string[,] DefineBoard()
         {   
-            string[] values = new string[board.Slots.Length];
+            string[,] values = new string[maxRowSlots, maxRowSlots];
             
-            for (int i = 0; i < board.Slots.Length; i++)
+            for (int i = 0; i < maxRowSlots; i++)
             {
-                if (board.Slots[i].IsUsed)
-                    values[i] = board.Slots[i].Value;
-                else
-                    values[i] = board.Slots[i].ToString();
+                for (int j = 0; j < maxRowSlots; j++)
+                {
+                    if (board.SlotMatrix[i, j].IsUsed)
+                        values[i, j] = board.SlotMatrix[i, j].Value;
+                    else
+                        values[i, j] = board.SlotMatrix[i, j].ToString();
+                }
             }
 
             return values;
         }
 
-        private void UpdateSlot(int position, Player currentPlayer)
+        private void UpdateSlot(string position, Player currentPlayer)
         {
-            board.Slots[position - 1].UpdateSlot(currentPlayer.Symbol);
+            string[] stringIgnore = new string[] {" ", ","};
+            int count = 2;
+            string[] coordinates = position.Split(
+                stringIgnore, count, StringSplitOptions.RemoveEmptyEntries);
+
+            int x = Int32.Parse(coordinates[0]);
+            int y = Int32.Parse(coordinates[1]);
+
+            board.SlotMatrix[x, y].UpdateSlot(currentPlayer.Symbol);
+        }
+
+        private void CheckWinCondition(Player currentPlayer)
+        {
+            
         }
 
         private Player SwitchPlayer(Player currentPlayer)

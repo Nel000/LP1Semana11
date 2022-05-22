@@ -5,16 +5,16 @@ namespace TicTacToeMVC
 {
     public class Slot
     {
-        private int number;
+        private string number;
 
         public bool IsUsed { get; private set; }
 
         public string Value { get; private set; }
 
-        public Slot(int number)
+        public Slot(string number)
         {
             this.number = number;
-            Value = number.ToString();
+            Value = number;
         }
 
         public void UpdateSlot(string move)

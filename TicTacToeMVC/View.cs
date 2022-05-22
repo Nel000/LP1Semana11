@@ -12,31 +12,32 @@ namespace TicTacToeMVC
             this.controller = controller;
         }
 
-        public void PrintBoard(string[] values)
+        public void PrintBoard(string[,] values)
         {
             Console.WriteLine();
 
-            Console.WriteLine($" {values[0]} | {values[1]} | {values[2]} ");
-            Console.WriteLine("-----------");
-            Console.WriteLine($" {values[3]} | {values[4]} | {values[5]} ");
-            Console.WriteLine("-----------");
-            Console.WriteLine($" {values[6]} | {values[7]} | {values[8]} ");
+            Console.WriteLine(
+                " {0,3} | {1,3} | {2,3} ",
+                values[0, 0], values[0, 1], values[0, 2]);
+            Console.WriteLine("-----------------");
+            Console.WriteLine(
+                " {0,3} | {1,3} | {2,3} ",
+                values[1, 0], values[1, 1], values[1, 2]);
+            Console.WriteLine("-----------------");
+            Console.WriteLine(
+                " {0,3} | {1,3} | {2,3} ",
+                values[2, 0], values[2, 1], values[2, 2]);
 
             Console.WriteLine();
         }
 
-        public int ActionSelection(Player currentPlayer)
+        public string ActionSelection(Player currentPlayer)
         {   
             Console.WriteLine($"{currentPlayer.ToString()}: " 
                 + "Select one of the numbered positions make a move");
             Console.Write("> ");
 
-            return int.Parse(Console.ReadLine());
-        }
-
-        public void UpdateBoard()
-        {
-
+            return Console.ReadLine();
         }
 
         public void InvalidOption()
